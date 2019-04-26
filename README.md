@@ -3,8 +3,20 @@
 <p>This week's homework assignment was to create a memory card game using React. The user is diplayed an assortment of cards (4x3) and click on each one to score a point. If the user clicks a card they have already clicked before, they lose the game and their score is reset back to 0.</p>
 
 ## CHALLENGES
+Dealing with the state and modifying it.
+I was running into issues where I thought I was keeping the original state of the card array being imported, but in reality I was changing it and reassigning values and properties. I thought that because I made 2 copies of the same value, that one could be changed and wouldn't affect the other.<br />
+Example: <br />
+{
+originalArray: cardArray,
+arrayToChange: cardArray
+}
 
+<br />
 
+But whenever I modified the values of arrayToChange, it would modify the value of cardArray directly and update the originalArray state.
+Looking into it led me to read about mutable and immutable values.
+
+# CREATE-REACT-APP DEFAULT BOILERPLATE INFO
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
