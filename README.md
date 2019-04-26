@@ -6,9 +6,9 @@
 Dealing with the state and modifying it.
 I was running into issues where I thought I was keeping the original state of the card array being imported, but in reality I was changing it and reassigning values and properties. I thought that because I made 2 copies of the same value, that one could be changed and wouldn't affect the other.<br />
 Example: <br />
-{
-originalArray: cardArray,
-arrayToChange: cardArray
+{ <br />
+originalArray: cardArray, <br />
+arrayToChange: cardArray <br />
 }
 
 <br />
