@@ -2,7 +2,7 @@
   "name": "clicky-game",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://august-johnson.github.io/19-clicky-game/",
+  "homepage": "https://august-johnson.github.io/react-clicky-game/",
   "dependencies": {
     "gh-pages": "^2.0.1",
     "react": "^16.8.6",

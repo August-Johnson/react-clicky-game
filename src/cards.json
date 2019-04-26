@@ -1,11 +1,11 @@
 [
     {
         "id": 1,
-        "image": "/images/card-image-R.png"
+        "image": "images/card-image-R.png"
     },
     {
         "id": 2,
-        "image": "/images/card-image-W.png"
+        "image": "images/card-image-W.png"
     },
     {
         "id": 3,
