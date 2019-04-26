@@ -19,6 +19,8 @@ arrayToChange: cardArray <br />
 But whenever I modified the values of arrayToChange, it would modify the value of cardArray directly and update the originalArray state.
 Looking into it led me to read about mutable and immutable values.
 
+<hr />
+
 # CREATE-REACT-APP DEFAULT BOILERPLATE INFO
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
