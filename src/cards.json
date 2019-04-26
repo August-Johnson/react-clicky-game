@@ -1,50 +1,62 @@
 [
     {
         "id": 1,
-        "image": "images/card-image-R.png"
+        "image": "images/card-image-R.png",
+        "clicked": "false"
     },
     {
         "id": 2,
-        "image": "images/card-image-W.png"
+        "image": "images/card-image-W.png",
+        "clicked": "false"
     },
     {
         "id": 3,
-        "image": "images/card-image-B.png"
+        "image": "images/card-image-B.png",
+        "clicked": "false"
     },
     {
         "id": 4,
-        "image": "images/card-image-Y.jpg"
+        "image": "images/card-image-Y.jpg",
+        "clicked": "false"
     },
     {
         "id": 5,
-        "image": "images/card-image-J.png"
+        "image": "images/card-image-J.png",
+        "clicked": "false"
     },
     {
         "id": 6,
-        "image": "images/card-image-N.png"
+        "image": "images/card-image-N.png",
+        "clicked": "false"
     },
     {
         "id": 7,
-        "image": "images/card-image-P.jpg"
+        "image": "images/card-image-P.jpg",
+        "clicked": "false"
     },
     {
         "id": 8,
-        "image": "images/card-image-R2.jpg"
+        "image": "images/card-image-R2.jpg",
+        "clicked": "false"
     },
     {
         "id": 9,
-        "image": "images/card-image-C.png"
+        "image": "images/card-image-C.png",
+        "clicked": "false"
     },
     {
         "id": 10,
-        "image": "images/card-image-N2.png"
+        "image": "images/card-image-N2.png",
+        "clicked": "false"
     },
     {
         "id": 11,
-        "image": "images/card-image-E.jpg"
+        "image": "images/card-image-E.jpg",
+        "clicked": "false"
     },
     {
         "id": 12,
-        "image": "images/card-image-M.jpg"
+        "image": "images/card-image-M.jpg",
+        "clicked": "false"
     }
 ]

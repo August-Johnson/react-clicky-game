@@ -8,10 +8,10 @@ import gameCards from "../../cards.json";
 
 class Game extends Component {
     // Setting the state of the message and its color, the original array of cards being imported from cards.json, and the score and highscore.
-    // Also setting the state for the random order of which the cards will render.
+    // Also setting the state for the card array equal to the json being imported.
     state = {
-        gameCards: gameCards,
-        tempCardArrangement: [],
+        originalArray: gameCards,
+        temporaryArray: gameCards,
         message: "Click an image to begin!",
         messageColor: "#FFFFFF",
         score: 0,
@@ -21,7 +21,6 @@ class Game extends Component {
     // Shuffle the order of the counts on initial load.
     componentDidMount() {
         this.shuffleCards();
-        console.log(gameCards);
     }
 
     // Every update (in this case, clicking a card), run the method that determines whether or not to update the highscore.
@@ -34,13 +33,13 @@ class Game extends Component {
     // I used the Fisher-Yates Shuffle Algorithm.
     shuffleCards = () => {
 
-        // setting a variable of cardArr equal to the original source of cards in the state.
-        let cardArr = this.state.gameCards;
+        // setting a variable that holds the value equal to the original source of cards in the state.
+        const tempArr = this.state.temporaryArray;
 
-        // Take the current index starting at then end of the array.
+        // Take the current index starting at the end of the array.
         // Declare 2 variables, one that temporarily holds the value of the current index.
         // And one that represents a random card index that isn't the one being stored.
-        let currentIndex = cardArr.length; // (Left the current index number greater than the index position can go by 1 so I don't have to add it to Math.random later)
+        let currentIndex = tempArr.length; // (Left the current index number greater than the index position can go by 1 so I don't have to add it to Math.random later)
         let tempCardValue;
         let randomCard;
 
@@ -54,19 +53,36 @@ class Game extends Component {
             currentIndex -= 1;
 
             // Store current card in the temp variable.
-            tempCardValue = cardArr[currentIndex];
+            tempCardValue = tempArr[currentIndex];
 
             // Swap the current card with the randomly chosen card.
-            cardArr[currentIndex] = cardArr[randomCard];
+            tempArr[currentIndex] = tempArr[randomCard];
 
             // Set the card that was randomly chosen equal to the card we stored earlier. (switch places).
-            cardArr[randomCard] = tempCardValue;
+            tempArr[randomCard] = tempCardValue;
         }
         // Setting the state for the randomized array of cards.
-        this.setState({ tempCardArrangement: cardArr });
+        this.setState({ temporaryArray: tempArr });
     }
 
-    // Method for handling when the user loses by clicking an image they already clicked.
+
+    // Method that handles when a user clicks on a card.
+    handleClick = (card) => {
+        // If the card hasn't been clicked yet, set the click value to true and run the method for a successful guess.
+        if (card.clicked === "false") {
+            card.clicked = "true";
+            this.handleCorrectGuess();
+        }
+        else {
+            // If the card has been clicked, run the method for losing the game.
+            this.handleLoseCondition();
+        }
+        // Re-shuffle the card display order.
+        this.shuffleCards();
+    }
+
+
+    // Method for handling when the user loses by clicking an image they have already clicked.
     handleLoseCondition = () => {
         // Resetting the score back to 0 and displaying the message (in red) alerting them they lost.
         this.setState({
@@ -74,7 +90,9 @@ class Game extends Component {
             message: "You Guessed Incorrectly!",
             messageColor: "#FF0000"
         });
+        this.resetGame();
     }
+
 
     // Method that handles when the user guesses correctly.
     handleCorrectGuess = () => {
@@ -86,7 +104,29 @@ class Game extends Component {
         });
     }
 
-    handleWinCondition = () => this.state.score === 12 ? this.setState({ message: "You Win! Click an image to play again!",  messageColor: "#FFFFFF", score: 0 }) : "";
+
+    // Method that checks if the user has won. (12 points is the maximum you can acheive) 
+    // So if the user reaches that score, notify them that they have won and reset the game.
+    handleWinCondition = () => {
+        if (this.state.score === 12) {
+            this.setState({ message: "You Win! Click an image to play again!", messageColor: "#FFFFFF", score: 0 });
+            this.resetGame();
+        }
+    }
+
+
+    // Method that loops thorugh the temporary array of cards and switches its clicked value back to false if it is true.
+    // Sets the state of the original array equal to the array that was looped through.
+    resetGame = () => {
+        let resetArray = this.state.temporaryArray.forEach((card) => {
+            if (card.clicked === "true") {
+                card.clicked = "false";
+            }
+            return card;
+        });
+        this.setState({ originalArray: resetArray });
+    }
+
 
     // Method that checks if the user's end score was higher than the current highscore and updates the state accordingly.
     highscoreCheck = () => this.state.score > this.state.highscore ? this.setState({ highscore: this.state.score }) : false
@@ -101,10 +141,8 @@ class Game extends Component {
                 <Container>
                     <Row>
                         {/* Passing the card images, card array, and all the necessary methods */}
-                        {this.state.tempCardArrangement.map((card) =>
-                            <Card key={card.id} id={card.id} image={card.image} cardArr={this.state.gameCards}
-                                shuffleCards={this.shuffleCards} handleLoseCondition={this.handleLoseCondition}
-                                handleCorrectGuess={this.handleCorrectGuess} />)}
+                        {this.state.temporaryArray.map((card) =>
+                            <Card key={card.id} image={card.image} clicked={card.clicked} handleClick={this.handleClick} card={card} />)}
                     </Row>
                 </Container>
             </div >
