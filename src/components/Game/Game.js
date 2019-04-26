@@ -11,7 +11,6 @@ class Game extends Component {
     // Also setting the state for the card array equal to the json being imported.
     state = {
         originalArray: gameCards,
-        temporaryArray: gameCards,
         message: "Click an image to begin!",
         messageColor: "#FFFFFF",
         score: 0,
@@ -34,7 +33,7 @@ class Game extends Component {
     shuffleCards = () => {
 
         // setting a variable that holds the value equal to the original source of cards in the state.
-        const tempArr = this.state.temporaryArray;
+        const tempArr = this.state.originalArray;
 
         // Take the current index starting at the end of the array.
         // Declare 2 variables, one that temporarily holds the value of the current index.
@@ -61,8 +60,8 @@ class Game extends Component {
             // Set the card that was randomly chosen equal to the card we stored earlier. (switch places).
             tempArr[randomCard] = tempCardValue;
         }
-        // Setting the state for the randomized array of cards.
-        this.setState({ temporaryArray: tempArr });
+        // Setting the state of the card array equal to the randomized one.
+        this.setState({ originalArray: tempArr });
     }
 
 
@@ -115,14 +114,16 @@ class Game extends Component {
     }
 
 
-    // Method that loops thorugh the temporary array of cards and switches its clicked value back to false if it is true.
-    // Sets the state of the original array equal to the array that was looped through.
+    // Method that loops through the array of cards and switches its clicked value back to false if it is true.
+    // Sets the state of the original array equal to the array that was looped through and modified.
     resetGame = () => {
-        let resetArray = this.state.temporaryArray.forEach((card) => {
+        const resetArray = [];
+
+        this.state.originalArray.forEach((card) => {
             if (card.clicked === "true") {
                 card.clicked = "false";
             }
-            return card;
+            resetArray.push(card);
         });
         this.setState({ originalArray: resetArray });
     }
@@ -141,7 +142,7 @@ class Game extends Component {
                 <Container>
                     <Row>
                         {/* Passing the card images, card array, and all the necessary methods */}
-                        {this.state.temporaryArray.map((card) =>
+                        {this.state.originalArray.map((card) =>
                             <Card key={card.id} image={card.image} clicked={card.clicked} handleClick={this.handleClick} card={card} />)}
                     </Row>
                 </Container>
